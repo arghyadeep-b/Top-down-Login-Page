@@ -4,6 +4,7 @@ import { LoginForm } from "./loginForm";
 import { motion } from "framer-motion";
 import { AccountContext } from "./accountContext";
 import { SignupForm } from "./signupForm";
+import {SocialContainer} from "../socialContainer/SocialContainer"
 
 const BoxContainer = styled.div`
   width: 280px;
@@ -153,6 +154,8 @@ export function AccountBox(props) {
           {active === "signin" && <LoginForm />}
           {active === "signup" && <SignupForm />}
         </InnerContainer>
+      {/* Social Container */}
+        <SocialContainer style={{margin: "0 auto"}}/>
       </BoxContainer>
     </AccountContext.Provider>
   );
