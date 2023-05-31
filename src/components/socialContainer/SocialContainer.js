@@ -1,9 +1,9 @@
-import './SocialContainer.css'
+// import './SocialContainer.css'
 import React, { useEffect, useState} from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFacebookF, faGoogle, faTwitter } from '@fortawesome/free-brands-svg-icons'
 import {auth,ga,fa,ta} from "./Firebase"
-import {signInWithPopup} from "https://www.gstatic.com/firebasejs/9.21.0/firebase-auth.js";
+import {signInWithPopup} from "firebase/auth";
 
 
 
