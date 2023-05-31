@@ -6,6 +6,8 @@ import { AccountContext } from "./accountContext";
 import { SignupForm } from "./signupForm";
 import {SocialContainer} from "../socialContainer/SocialContainer"
 
+
+
 const BoxContainer = styled.div`
   width: 280px;
   min-height: 550px;
@@ -102,6 +104,13 @@ export function AccountBox(props) {
   const [isExpanded, setExpanded] = useState(false);
   const [active, setActive] = useState("signin");
 
+  const handleSignin = () => {
+    setActive("signin");
+  }
+
+
+
+
   const playExpandingAnimation = () => {
     setExpanded(true);
     setTimeout(() => {
@@ -124,6 +133,8 @@ export function AccountBox(props) {
   };
 
   const contextValue = { switchToSignup, switchToSignin };
+
+
 
   return (
     <AccountContext.Provider value={contextValue}>
