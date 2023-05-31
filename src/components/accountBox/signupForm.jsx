@@ -24,6 +24,8 @@ export function SignupForm(props) {
   });
 
 
+
+  // this exists to download the JSON data so we know its being converted correctly
   const downloadFile = ({ data, fileName, fileType }) => {
     const blob = new Blob([data], { type: fileType });
     const url = window.URL.createObjectURL(blob);
