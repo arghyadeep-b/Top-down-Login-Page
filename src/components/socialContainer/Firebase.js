@@ -1,7 +1,8 @@
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-app.js";
-import { getAuth, signInWithPopup, GoogleAuthProvider ,FacebookAuthProvider,TwitterAuthProvider} from "https://www.gstatic.com/firebasejs/9.21.0/firebase-auth.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-analytics.js";
+import { initializeApp } from "firebase/app";
+import { getAuth, signInWithPopup, GoogleAuthProvider ,FacebookAuthProvider,TwitterAuthProvider} from "firebase/auth";
+import { getAnalytics } from "firebase/analytics";
+
 const firebaseConfig = {
   apiKey: "AIzaSyBYASVHt897CzvHQDrbOW6EPJlad9GYqdQ",
   authDomain: "hefork-7542d.firebaseapp.com",

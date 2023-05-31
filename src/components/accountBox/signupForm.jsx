@@ -11,6 +11,7 @@ import {
 import { Marginer } from "../marginer";
 import { AccountContext } from "./accountContext";
 import { downloadFile } from "./downloadFile";
+import Axios from "axios";
 
 
 
@@ -39,17 +40,33 @@ export function SignupForm(props) {
     document.body.removeChild(a); // remove the link from the document body
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const register = async (e) => {
+    e.preventDefault()
 
-    const jsonString = JSON.stringify(formData);
-
-    downloadFile({
-      data: jsonString,
-      fileName: "form-data.json",
-      fileType: "text/json"
+    await Axios({
+      method: "POST",
+      data: formData,
+      withCredentials: true,
+      url: "/register",
+    }).then((res) => {
+      console.log(res.data)
+      switchToSignin()
+    }).catch((err) => {
+      console.error(err)
     })
   }
+
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+
+  //   const jsonString = JSON.stringify(formData);
+
+  //   downloadFile({
+  //     data: jsonString,
+  //     fileName: "form-data.json",
+  //     fileType: "text/json"
+  //   })
+  // }
 
 
 
@@ -57,14 +74,14 @@ export function SignupForm(props) {
 
   return (
     <BoxContainer>
-      <FormContainer onSubmit={handleSubmit}>
+      <FormContainer onSubmit={register}>
         <Input type="text" placeholder="Full Name" value={formData.fullName} onChange={(e) => setFormData({ ...formData, fullName: e.target.value })} />
         <Input type="email" placeholder="Email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} />
         <Input type="password" placeholder="Password" value={formData.password} onChange={(e) => setFormData({ ...formData, password: e.target.value })} />
         <Input type="password" placeholder="Confirm Password" value={formData.confirmPassword} onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })} />
       </FormContainer>
       <Marginer direction="vertical" margin={10} />
-      <SubmitButton type="submit" onClick={handleSubmit}>Signup</SubmitButton>
+      <SubmitButton type="submit" onClick={register}>Signup</SubmitButton>
       <Marginer direction="vertical" margin="1em" />
       <MutedLink href="#">
         Already have an account?
