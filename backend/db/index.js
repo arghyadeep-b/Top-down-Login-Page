@@ -19,3 +19,12 @@ exports.register = (req, res) => {
         }
     });
 }
+
+exports.getUser = async (data) => {
+    const results = await pool.query(
+        `SELECT * FROM users WHERE ("email" = $1)`,
+        [data.email]
+    );
+
+    return results.rows[0]
+}

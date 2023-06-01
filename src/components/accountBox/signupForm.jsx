@@ -40,11 +40,15 @@ export function SignupForm(props) {
     document.body.removeChild(a); // remove the link from the document body
   };
 
+  // Send user data to the backend
   const register = async (e) => {
     e.preventDefault()
 
     await Axios({
       method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
       data: formData,
       withCredentials: true,
       url: "/register",

@@ -3,10 +3,11 @@ const cors = require('cors')
 const app = express();
 
 const db = require('./db/index.js');
+const jwt = require('./auth/jwt.js')
 
 const port = 4000;
 const reactClient = 'http://localhost:3000'; 
-const path = require('path')
+const path = require('path');
 
 app.use(express.static('../build'))
 app.use(express.json())
@@ -17,6 +18,24 @@ app.use(
         credentials: true
     })
 )
+
+async function authenticate(req, res, next) {
+    let user = await db.getUser(req.body);
+
+    if (!user) {
+        res.status(401).send("Can't authenticate email");
+    } else if (user.password != req.body.password) {
+        res.status(401).send("Can't authenticate password")
+    } else {
+        req.user = user;
+        next()
+    }
+}
+
+app.post('/login', authenticate, async (req, res) => {
+    const token = jwt.generateToken(req.user);
+    res.status(200).json(token)
+})
 
 app.post('/register', db.register) 
 
