@@ -4,6 +4,7 @@ const app = express();
 
 const db = require('./db/index.js');
 const jwt = require('./auth/jwt.js')
+const hash = require('./auth/hash.js')
 
 const port = 4000;
 const reactClient = 'http://localhost:3000'; 
@@ -19,12 +20,19 @@ app.use(
     })
 )
 
+async function encrypt(req, res, next) {
+    let encryptedPassword = await hash.encrypt(req.body.password);
+    
+    req.body.password = encryptedPassword;
+    next()
+}
+
 async function authenticate(req, res, next) {
     let user = await db.getUser(req.body);
 
     if (!user) {
         res.status(401).send("Can't authenticate email");
-    } else if (user.password != req.body.password) {
+    } else if (!(await hash.comparePassword(req.body.password, user.password))) {
         res.status(401).send("Can't authenticate password")
     } else {
         req.user = user;
@@ -37,7 +45,7 @@ app.post('/login', authenticate, async (req, res) => {
     res.status(200).json(token)
 })
 
-app.post('/register', db.register) 
+app.post('/register', encrypt, db.register) 
 
 app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname, '../build/index.html'))
