@@ -3,7 +3,7 @@ const e = require('express');
 let Pool = require('pg').Pool;
 
 let dbURL = {
-    connectionString: 'postgres://hexfork_user:DGKkEa7230iJZ2XpWMzjCpJp0XTfMILN@dpg-chpe6h2k728ivvvfa8ag-a.oregon-postgres.render.com/hexfork?ssl=true'
+    connectionString: 'postgres://hexfork_user:DGKkEa7230iJZ2XpWMzjCpJp0XTfMILN@dpg-chpe6h2k728ivvvfa8ag-a.oregon-postgres.render.com/hexfork_users?ssl=true'
 }
 
 const pool = new Pool(dbURL)
